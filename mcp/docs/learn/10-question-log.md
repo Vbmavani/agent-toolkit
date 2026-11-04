@@ -77,7 +77,7 @@ These are my actual questions from the sessions, in order, with typos fixed and 
 | 00:57 | What are capabilities, and what values can they have? | [Ch 3](03-messages.md#capabilities) |
 | 01:01 | So the server reads the client's capabilities and responds based on them? | [Ch 3](03-messages.md#capabilities) |
 | 01:19 | What does `server/discover` return? | [Ch 3](03-messages.md#serverdiscover) |
-| 01:26 | Make one big object of all of MCP, with a dropdown for every possible value. | [Master object page](https://vbmavani.github.io/mcp/) |
+| 01:26 | Make one big object of all of MCP, with a dropdown for every possible value. | [Master object page](https://vbmavani.github.io/agent-toolkit/mcp/spec.html) |
 | 02:00 | What's LogRocket MCP's rate limit, and how does a client know? | [Ch 9](09-ecosystem-and-future.md), [Ch 7](07-security.md) |
 | 02:01 | Tell me about long-running jobs with a handle, with a real use case. | [Ch 4](04-server-features.md#tasks-long-running-jobs) |
 | 02:04 | Give me a way to share skills via MCP. | [Ch 4](04-server-features.md#skills-over-mcp) |

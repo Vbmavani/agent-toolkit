@@ -15,7 +15,7 @@ A workshop for building and learning the components of AI agents, one component 
 
 `mcp/` has a working server, a client that talks to it, and a guide site that ties them together.
 
-**Start here: [vbmavani.github.io/agent-toolkit/mcp](https://vbmavani.github.io/agent-toolkit/mcp/)**. The guide is six connected pages, in reading order: Overview → Server → Client → Spec reference → Census → Adoption. Every page has the same nav bar and *Previous / Next* links.
+**Start here: [vbmavani.github.io/agent-toolkit/mcp](https://vbmavani.github.io/agent-toolkit/mcp/)**. The guide is seven connected pages, in reading order: Overview → Learn MCP (11 chapters, starting with a day-by-day log of how I learned it) → Server → Client → Spec reference → Census → Adoption. Every page has the same nav bar and *Previous / Next* links.
 
 | Folder | What it is |
 |---|---|

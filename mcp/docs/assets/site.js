@@ -4,6 +4,7 @@
 (() => {
   const PAGES = [
     { path: "", label: "Overview", title: "What MCP is" },
+    { path: "learn/", label: "Learn MCP", title: "Learn MCP, in 11 chapters" },
     { path: "server.html", label: "Server", title: "The weather server" },
     { path: "client.html", label: "Client", title: "The client" },
     { path: "spec.html", label: "Spec reference", title: "Spec reference" },

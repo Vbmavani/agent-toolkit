@@ -72,15 +72,19 @@ main hr { border: 0; border-top: 1px solid var(--rule); margin: 32px 0 }
   aside.open { display: block }
   aside ol { position: static }
 }
+.tk-pager { margin-bottom: 48px }
 </style>
+<link rel="stylesheet" href="../assets/site.css">
+<style>:root { --tk-max: 1240px }</style>
 </head>
 <body>
+<script src="../assets/site.js"></script>
 <header class="top">
   <a class="brand" href="./">learn<span>.</span>mcp</a>
   <nav>
     <button id="menuBtn" type="button" aria-expanded="false" aria-controls="toc">Chapters</button>
-    <a href="../">Master object</a>
-    <a id="srcLink" href="https://github.com/Vbmavani/mcp/tree/main/docs/learn">Source</a>
+    <a href="../spec.html">Spec reference</a>
+    <a id="srcLink" href="https://github.com/Vbmavani/agent-toolkit/tree/main/mcp/docs/learn">Source</a>
     <button id="themeBtn" type="button" aria-label="Toggle light or dark theme">◐</button>
   </nav>
 </header>
@@ -105,7 +109,7 @@ const CHAPTERS = [
   ["09-ecosystem-and-future", "9", "Ecosystem and the future"],
   ["10-question-log", "10", "Every question I asked"],
 ];
-const REPO = "https://github.com/Vbmavani/mcp/blob/main/";
+const REPO = "https://github.com/Vbmavani/agent-toolkit/blob/main/mcp/";
 const doc = document.getElementById("doc");
 const toc = document.getElementById("toc");
 

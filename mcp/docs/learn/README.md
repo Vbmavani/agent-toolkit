@@ -4,7 +4,7 @@ This is a cleaned-up record of how I learned the **Model Context Protocol (MCP)*
 
 Read it in order if you're new. Each chapter starts with the questions that led to it, so you can see *why* each topic came up, not just what it is.
 
-**Read it online:** [vbmavani.github.io/mcp/learn](https://vbmavani.github.io/mcp/learn/)
+**Read it online:** [vbmavani.github.io/agent-toolkit/mcp/learn](https://vbmavani.github.io/agent-toolkit/mcp/learn/)
 
 ## Chapters
 
@@ -24,7 +24,7 @@ Read it in order if you're new. Each chapter starts with the questions that led 
 
 ## Related pages in this repo
 
-- [MCP master object](https://vbmavani.github.io/mcp/): every part of the spec as one object, with a dropdown for every allowed value.
+- [MCP master object](https://vbmavani.github.io/agent-toolkit/mcp/spec.html): every part of the spec as one object, with a dropdown for every allowed value.
 - [MCP-COMPONENTS.md](../../MCP-COMPONENTS.md): every component, grouped by role.
 - [weather-server-typescript](../../weather-server-typescript/) and [mcp-client-typescript](../../mcp-client-typescript/): the code built in the lab.
 

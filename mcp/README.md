@@ -6,7 +6,7 @@ A TypeScript MCP weather server and a TypeScript MCP client that connects to it.
 
 **Every MCP component, grouped by role: [MCP-COMPONENTS.md](MCP-COMPONENTS.md)**
 
-**Learn MCP the way I did, in 11 chapters: [vbmavani.github.io/mcp/learn](https://vbmavani.github.io/mcp/learn/)** (source: [docs/learn](docs/learn/))
+**Learn MCP the way I did, in 11 chapters: [vbmavani.github.io/agent-toolkit/mcp/learn](https://vbmavani.github.io/agent-toolkit/mcp/learn/)** (source: [docs/learn](docs/learn/))
 
 | Folder | What it is |
 |---|---|
@@ -31,11 +31,12 @@ See the README in each folder for details.
 | # | Page | Source | What it covers |
 |---|---|---|---|
 | 1 | [Overview](https://vbmavani.github.io/agent-toolkit/mcp/) | `docs/index.html` | What MCP is, how a tool call flows, and the learning path |
-| 2 | [Server](https://vbmavani.github.io/agent-toolkit/mcp/server.html) | `docs/server.html` | Walkthrough of `weather-server-typescript` |
-| 3 | [Client](https://vbmavani.github.io/agent-toolkit/mcp/client.html) | `docs/client.html` | Walkthrough of `mcp-client-typescript` and its tool loop |
-| 4 | [Spec reference](https://vbmavani.github.io/agent-toolkit/mcp/spec.html) | `docs/spec.html` | Every part of MCP (spec 2026-07-28) as one object, with every allowed value |
-| 5 | [Census](https://vbmavani.github.io/agent-toolkit/mcp/reference/census.html) | `docs/reference/census.html` | Official MCP servers from 16 large companies and every tool |
-| 6 | [Adoption](https://vbmavani.github.io/agent-toolkit/mcp/reference/adoption.html) | `docs/reference/adoption.html` | SDK downloads, registry growth and survey figures (data in `docs/reference/data/`) |
+| 2 | [Learn MCP](https://vbmavani.github.io/agent-toolkit/mcp/learn/) | `docs/learn/*.md` | 11 chapters on how I learned MCP in three days, starting with a day-by-day log |
+| 3 | [Server](https://vbmavani.github.io/agent-toolkit/mcp/server.html) | `docs/server.html` | Walkthrough of `weather-server-typescript` |
+| 4 | [Client](https://vbmavani.github.io/agent-toolkit/mcp/client.html) | `docs/client.html` | Walkthrough of `mcp-client-typescript` and its tool loop |
+| 5 | [Spec reference](https://vbmavani.github.io/agent-toolkit/mcp/spec.html) | `docs/spec.html` | Every part of MCP (spec 2026-07-28) as one object, with every allowed value |
+| 6 | [Census](https://vbmavani.github.io/agent-toolkit/mcp/reference/census.html) | `docs/reference/census.html` | Official MCP servers from 16 large companies and every tool |
+| 7 | [Adoption](https://vbmavani.github.io/agent-toolkit/mcp/reference/adoption.html) | `docs/reference/adoption.html` | SDK downloads, registry growth and survey figures (data in `docs/reference/data/`) |
 
 The nav bar and *Previous / Next* links come from `docs/assets/site.js`. To add a page, add it to the `PAGES` list there and load `assets/site.js` first thing in the page's `<body>`.
 

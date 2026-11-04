@@ -13,7 +13,7 @@
 <body>
 <script src="assets/site.js"></script>
 <main>
-  <p class="eyebrow">Step 3 · Code</p>
+  <p class="eyebrow">Step 4 · Code</p>
   <h1>The client</h1>
   <p class="lede">A command-line chatbot that starts an MCP server, gives its tools to Claude, and runs whatever tools Claude asks for until Claude has an answer. It's the part a host app like Claude Desktop does for you, in about 250 lines.</p>
   <p class="src">Source: <a href="https://github.com/Vbmavani/agent-toolkit/blob/main/mcp/mcp-client-typescript/index.ts">mcp/mcp-client-typescript/index.ts</a></p>
@@ -146,7 +146,7 @@ this.tools = toolsResult.tools.map((tool) =&gt; ({
   messages.push({ role: "user", content: toolResults });
   response = await this.anthropic.messages.create({ model, max_tokens, messages, tools: this.tools });
 }</code></pre>
-  <p class="src"><a href="https://github.com/Vbmavani/agent-toolkit/blob/main/mcp/mcp-client-typescript/index.ts#L82-L180">index.ts lines 82–180</a> (shortened here)</p>
+  <p class="src"><a href="https://github.com/Vbmavani/agent-toolkit/blob/main/mcp/mcp-client-typescript/index.ts#L82-L179">index.ts lines 82–179</a> (shortened here)</p>
 
   <h3>Where each part of a result goes</h3>
   <div class="tbl">

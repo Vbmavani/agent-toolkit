@@ -16,7 +16,7 @@
   <p class="eyebrow">agent-toolkit · Component 1 of the agent</p>
   <h1>MCP, end to end</h1>
   <p class="lede">The Model Context Protocol (MCP) is an open standard for giving an AI app tools and data. A <b>server</b> offers tools, resources and prompts. A <b>client</b>, running inside a host app such as Claude Desktop or Claude Code, connects to the server and hands its tools to the model.</p>
-  <p>Everything here is connected: a working weather server, a client that talks to it, a reference for every field in the spec, and background on who uses MCP. Start at the top and use <b>Next</b> at the bottom of each page.</p>
+  <p>Everything here is connected: an 11-chapter course on how I learned MCP, a working weather server, a client that talks to it, a reference for every field in the spec, and background on who uses MCP. Start at the top and use <b>Next</b> at the bottom of each page.</p>
 
   <figure class="figure">
     <div class="scroll">
@@ -102,19 +102,24 @@
   </figure>
 
   <h2>The learning path</h2>
+  <p class="group">Understand it</p>
+  <ol class="path">
+    <li><a href="learn/"><span class="n">02</span><b>Learn MCP <small>11 chapters</small></b><span>How I learned MCP in three days (1–3 November 2026): the questions I asked, in order, and the answers that made it click. Starts with a day-by-day log.</span></a></li>
+  </ol>
   <p class="group">Build it</p>
   <ol class="path">
-    <li><a href="server.html"><span class="n">02</span><b>The weather server <small>code</small></b><span>Tools, resources, an interactive widget, elicitation and both transports, in one TypeScript file.</span></a></li>
-    <li><a href="client.html"><span class="n">03</span><b>The client <small>code</small></b><span>Connects to a server, lists its tools and runs Claude's tool calls in a loop until it has an answer.</span></a></li>
+    <li><a href="server.html"><span class="n">03</span><b>The weather server <small>code</small></b><span>Tools, resources, an interactive widget, elicitation, both transports and an online deploy, in one TypeScript file.</span></a></li>
+    <li><a href="client.html"><span class="n">04</span><b>The client <small>code</small></b><span>Connects to a server, lists its tools and runs Claude's tool calls in a loop until it has an answer.</span></a></li>
   </ol>
   <p class="group">Look it up</p>
   <ol class="path">
-    <li><a href="spec.html"><span class="n">04</span><b>Spec reference <small>reference</small></b><span>Every part of MCP (spec 2026-07-28) as one searchable object, with a dropdown of every allowed value.</span></a></li>
+    <li><a href="spec.html"><span class="n">05</span><b>Spec reference <small>reference</small></b><span>Every part of MCP (spec 2026-07-28) as one searchable object, with a dropdown of every allowed value.</span></a></li>
+    <li><a href="https://github.com/Vbmavani/agent-toolkit/blob/main/mcp/MCP-COMPONENTS.md"><span class="n">↗</span><b>Components guide <small>on GitHub</small></b><span>Every MCP component in one list, grouped by role: participants, base protocol, server and client features, utilities.</span></a></li>
   </ol>
   <p class="group">Background</p>
   <ol class="path">
-    <li><a href="reference/census.html"><span class="n">05</span><b>Server census <small>landscape</small></b><span>The official MCP servers from 16 large software companies and every tool they offer.</span></a></li>
-    <li><a href="reference/adoption.html"><span class="n">06</span><b>Adoption in numbers <small>landscape</small></b><span>SDK downloads, official registry growth and survey figures, through October 2026.</span></a></li>
+    <li><a href="reference/census.html"><span class="n">06</span><b>Server census <small>landscape</small></b><span>The official MCP servers from 16 large software companies and every tool they offer.</span></a></li>
+    <li><a href="reference/adoption.html"><span class="n">07</span><b>Adoption in numbers <small>landscape</small></b><span>SDK downloads, official registry growth and survey figures, through October 2026.</span></a></li>
   </ol>
 
   <h2>The three building blocks</h2>
