@@ -2,7 +2,7 @@
 
 A TypeScript MCP weather server and a TypeScript MCP client that connects to it.
 
-**Live MCP reference page: [vbmavani.github.io/agent-toolkit/mcp](https://vbmavani.github.io/agent-toolkit/mcp/)**
+**Guide: [vbmavani.github.io/agent-toolkit/mcp](https://vbmavani.github.io/agent-toolkit/mcp/)**
 
 | Folder | What it is |
 |---|---|
@@ -20,19 +20,19 @@ node build/index.js ../weather-server-typescript/build/index.js
 
 See the README in each folder for details.
 
-## MCP reference page
+## The guide site
 
-[vbmavani.github.io/agent-toolkit/mcp](https://vbmavani.github.io/agent-toolkit/mcp/) shows every part of MCP (spec 2026-07-28) as one object, with a dropdown of every allowed value. The source is `docs/index.html`, published by the Pages workflow in `.github/workflows/pages.yml`.
+`docs/` is a small static site published at [vbmavani.github.io/agent-toolkit/mcp](https://vbmavani.github.io/agent-toolkit/mcp/) by `.github/workflows/pages.yml`. Its pages, in reading order:
 
-### Reference pages
+| # | Page | Source | What it covers |
+|---|---|---|---|
+| 1 | [Overview](https://vbmavani.github.io/agent-toolkit/mcp/) | `docs/index.html` | What MCP is, how a tool call flows, and the learning path |
+| 2 | [Server](https://vbmavani.github.io/agent-toolkit/mcp/server.html) | `docs/server.html` | Walkthrough of `weather-server-typescript` |
+| 3 | [Client](https://vbmavani.github.io/agent-toolkit/mcp/client.html) | `docs/client.html` | Walkthrough of `mcp-client-typescript` and its tool loop |
+| 4 | [Spec reference](https://vbmavani.github.io/agent-toolkit/mcp/spec.html) | `docs/spec.html` | Every part of MCP (spec 2026-07-28) as one object, with every allowed value |
+| 5 | [Census](https://vbmavani.github.io/agent-toolkit/mcp/reference/census.html) | `docs/reference/census.html` | Official MCP servers from 16 large companies and every tool |
+| 6 | [Adoption](https://vbmavani.github.io/agent-toolkit/mcp/reference/adoption.html) | `docs/reference/adoption.html` | SDK downloads, registry growth and survey figures (data in `docs/reference/data/`) |
 
-Background reading linked from the reference page's footer. Not needed to learn MCP itself.
-
-| Page | Source | What it shows |
-|---|---|---|
-| [MCP Server Census](https://vbmavani.github.io/agent-toolkit/mcp/reference/census.html) | `docs/reference/census.html` | Official MCP servers from 16 large software companies: tool counts, hosting, sign-in and every tool |
-| [MCP Adoption in Numbers](https://vbmavani.github.io/agent-toolkit/mcp/reference/adoption.html) | `docs/reference/adoption.html` | SDK downloads, official registry growth, GitHub repos and reported survey figures, through October 2026 |
-
-The adoption page's data is also in `docs/reference/data/` as CSV files.
+The nav bar and *Previous / Next* links come from `docs/assets/site.js`. To add a page, add it to the `PAGES` list there and load `assets/site.js` first thing in the page's `<body>`.
 
 Based on [modelcontextprotocol/quickstart-resources](https://github.com/modelcontextprotocol/quickstart-resources) (MIT).

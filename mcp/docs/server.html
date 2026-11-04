@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A walkthrough of the weather MCP server: tools, structured output, resources, subscriptions, an MCP App widget, URL elicitation and both transports.">
+<title>The weather server</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/page.css">
+</head>
+<body>
+<script src="assets/site.js"></script>
+<main>
+  <p class="eyebrow">Step 2 · Code</p>
+  <h1>The weather server</h1>
+  <p class="lede">One TypeScript file that turns the US National Weather Service API into an MCP server. It shows almost every server-side feature of MCP: tools with typed output, resources you can subscribe to, an interactive widget, a URL elicitation and both transports.</p>
+  <p class="src">Source: <a href="https://github.com/Vbmavani/agent-toolkit/blob/main/mcp/weather-server-typescript/src/index.ts">mcp/weather-server-typescript/src/index.ts</a> · <a href="https://github.com/Vbmavani/agent-toolkit/blob/main/mcp/weather-server-typescript/src/alerts-view.ts">src/alerts-view.ts</a></p>
+
+  <h2>What it offers</h2>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Name</th><th>Kind</th><th>What it does</th><th>MCP feature it shows</th></tr></thead>
+      <tbody>
+        <tr><td><code>get-forecast</code></td><td>Tool</td><td>Next 5 forecast periods for a latitude and longitude</td><td>Input validation, <code>outputSchema</code> (object)</td></tr>
+        <tr><td><code>get-alerts</code></td><td>Tool</td><td>Active weather alerts for a two-letter US state</td><td><code>outputSchema</code> as a top-level array, MCP App widget</td></tr>
+        <tr><td><code>open-facebook-login</code></td><td>Tool</td><td>Asks the client to open a page in the browser</td><td>URL-mode elicitation (multi-round-trip)</td></tr>
+        <tr><td><code>weather://alerts/{state}</code></td><td>Resource template</td><td>A state's alerts as JSON</td><td>Resources, subscriptions</td></tr>
+        <tr><td><code>weather://rotate/{states}</code></td><td>Resource template</td><td>Steps through states on a timer</td><td>Testing update notifications</td></tr>
+        <tr><td><code>ui://weather/alerts.html</code></td><td>App resource</td><td>The alerts widget's HTML</td><td>MCP Apps</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>1. A tool: <code>get-forecast</code></h2>
+  <p>A tool is a name, a description the model reads to decide when to call it, an input schema and a handler. The input schema (here written with zod) is checked before the handler runs, so a latitude of 200 never reaches your code.</p>
+<pre><code>server.registerTool(
+  "get-forecast",
+  {
+    title: "Get Weather Forecast",
+    description: "Get weather forecast for a location",
+    inputSchema: z.object({
+      latitude: z.number().min(-90).max(90).describe("Latitude of the location"),
+      longitude: z.number().min(-180).max(180).describe("Longitude of the location"),
+    }),
+    outputSchema: forecastOutputSchema,
+  },
+  async ({ latitude, longitude }) =&gt; {
+    // ...two NWS calls: /points/{lat},{lon}, then the forecast URL it returns
+    return { content: [{ type: "text", text }], structuredContent: forecast };
+  },
+);</code></pre>
+  <p class="src"><a href="https://github.com/Vbmavani/agent-toolkit/blob/main/mcp/weather-server-typescript/src/index.ts#L352-L418">index.ts lines 352–418</a></p>
+
+  <h3>Two answers in one result</h3>
+  <p>Every tool result returns the same answer twice. <code>content</code> is text for the model to read. <code>structuredContent</code> is typed data for the app, and it must match the tool's <code>outputSchema</code>. The client SDK checks that for you.</p>
+  <p>When something goes wrong, the handler throws. The SDK turns that into a result with <code>isError: true</code>, which the model sees and can recover from, for example by trying another location. That is different from a protocol error, such as calling a tool that doesn't exist.</p>
+
+  <h2>2. An array result and a widget: <code>get-alerts</code></h2>
+  <p><code>get-alerts</code> returns a list, so its <code>outputSchema</code> is a top-level array. Spec 2026-07-28 is the first version to allow that; for older clients the SDK wraps it as <code>{ "result": [...] }</code> automatically.</p>
+  <p>It is also registered as an <b>MCP App</b> tool. Its <code>_meta.ui.resourceUri</code> points at an HTML resource, and hosts that support MCP Apps (such as Claude Desktop) show that page in a sandboxed frame next to the result. In the widget, picking another state calls <code>get-alerts</code> again through the host, then tells the model what the user is now looking at.</p>
+<pre><code>registerAppTool(server, "get-alerts", {
+  title: "Get Weather Alerts",
+  inputSchema: z.object({ state: z.string().length(2) }),
+  outputSchema: alertsOutputSchema,          // z.array(z.object({ event, area, ... }))
+  _meta: { ui: { resourceUri: ALERTS_VIEW_URI } },
+}, async ({ state }) =&gt; { /* ... */ });</code></pre>
+  <p class="src"><a href="https://github.com/Vbmavani/agent-toolkit/blob/main/mcp/weather-server-typescript/src/index.ts#L301-L350">index.ts lines 301–350</a> · the widget: <a href="https://github.com/Vbmavani/agent-toolkit/blob/main/mcp/weather-server-typescript/src/alerts-view.ts">alerts-view.ts</a></p>
+
+  <h2>3. Resources and live updates</h2>
+  <p>Tools are chosen by the model; resources are read by the app. A <b>resource template</b> like <code>weather://alerts/{state}</code> covers many URIs, and its <code>list</code> callback says which ones to show (by default FL, CA and NY).</p>
+  <p>Over HTTP, the server polls the watched states every 60 seconds. When a state's alerts change it sends <code>notifications/resources/updated</code> to clients that subscribed through <code>subscriptions/listen</code>. The rotating resource does the same on a timer, so you can test subscriptions without waiting for real weather.</p>
+<pre><code>cd mcp/weather-server-typescript
+node build/index.js --http           # serves http://127.0.0.1:3333/mcp
+node scripts/listen.mjs FL           # second terminal: prints each update</code></pre>
+  <p class="src"><a href="https://github.com/Vbmavani/agent-toolkit/blob/main/mcp/weather-server-typescript/src/index.ts#L166-L299">index.ts lines 166–299</a> · <a href="https://github.com/Vbmavani/agent-toolkit/blob/main/mcp/weather-server-typescript/scripts/listen.mjs">scripts/listen.mjs</a></p>
+
+  <h2>4. Asking the user: URL elicitation</h2>
+  <p>A server can't keep a request open while it waits for the user, because the 2026-07-28 protocol is stateless. Instead it answers <code>input_required</code> with what it needs, and the client calls the tool again with the user's answer attached. Here the server asks the client to open a web page, which is how a real server would send someone to a login or payment page without the secret ever passing through the chat.</p>
+<pre><code>const answer = inputResponse(ctx.mcpReq.inputResponses, "login");
+if (answer.kind === "missing") {
+  return inputRequired({
+    inputRequests: {
+      login: inputRequired.elicitUrl({
+        message: "Open the Facebook login page in your browser?",
+        url: "https://www.facebook.com/login",
+      }),
+    },
+  });
+}
+// second call: answer.action is "accept", "decline" or "cancel"</code></pre>
+  <p class="src"><a href="https://github.com/Vbmavani/agent-toolkit/blob/main/mcp/weather-server-typescript/src/index.ts#L420-L448">index.ts lines 420–448</a></p>
+
+  <h2>5. Two transports, one server</h2>
+  <p>The same <code>buildServer()</code> runs over either transport. <b>stdio</b> is the default: the host starts the server as a child process and they exchange one JSON-RPC message per line. With <code>--http</code> it serves <b>Streamable HTTP</b> on <code>127.0.0.1:3333/mcp</code>, bound to localhost with origin checks on.</p>
+<pre><code>if (process.argv.includes("--http")) {
+  const handler = createMcpHandler((ctx) =&gt; buildServer(ctx.era === "modern"), { onerror });
+  const app = createMcpHonoApp();
+  app.all("/mcp", (c) =&gt; handler.fetch(c.req.raw));
+  serve({ fetch: app.fetch, port, hostname: "127.0.0.1" });
+} else {
+  serveStdio(() =&gt; buildServer(), { onerror });
+}</code></pre>
+  <p class="src"><a href="https://github.com/Vbmavani/agent-toolkit/blob/main/mcp/weather-server-typescript/src/index.ts#L457-L475">index.ts lines 457–475</a></p>
+  <p>Over stdio, anything the server prints must go to <b>stderr</b>: stdout carries only MCP messages, so a stray <code>console.log</code> would break the connection. That is why every log line in this file uses <code>console.error</code>.</p>
+
+  <h2>Settings</h2>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Variable</th><th>Default</th><th>What it changes</th></tr></thead>
+      <tbody>
+        <tr><td><code>PORT</code></td><td><code>3333</code></td><td>HTTP port, with <code>--http</code></td></tr>
+        <tr><td><code>WATCH_STATES</code></td><td><code>FL,CA,NY</code></td><td>States listed as resources and polled for changes</td></tr>
+        <tr><td><code>POLL_SECONDS</code></td><td><code>60</code></td><td>How often alerts are checked</td></tr>
+        <tr><td><code>ROTATE_SECONDS</code></td><td><code>POLL_SECONDS</code></td><td>How often the rotating resource moves to the next state</td></tr>
+        <tr><td><code>NWS_API_BASE</code></td><td><code>https://api.weather.gov</code></td><td>Weather API address (the tests point it at a fake)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+</body>
+</html>

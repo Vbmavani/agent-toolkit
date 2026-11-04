@@ -13,14 +13,15 @@ A workshop for building and learning the components of AI agents, one component 
 
 [MCP](https://modelcontextprotocol.io) is an open standard for connecting an agent to tools and data. A **server** exposes tools, resources and prompts. A **client** (inside a host such as Claude Desktop or Claude Code) connects to servers and hands their tools to the model.
 
-`mcp/` has a working server, a client that talks to it, and a reference page for the whole protocol.
+`mcp/` has a working server, a client that talks to it, and a guide site that ties them together.
+
+**Start here: [vbmavani.github.io/agent-toolkit/mcp](https://vbmavani.github.io/agent-toolkit/mcp/)**. The guide is six connected pages, in reading order: Overview → Server → Client → Spec reference → Census → Adoption. Every page has the same nav bar and *Previous / Next* links.
 
 | Folder | What it is |
 |---|---|
 | [`mcp/weather-server-typescript/`](mcp/weather-server-typescript/) | MCP server for US weather from the National Weather Service API |
 | [`mcp/mcp-client-typescript/`](mcp/mcp-client-typescript/) | Chatbot client: launches a server, lists its tools and lets Claude call them |
-| [`mcp/docs/`](mcp/docs/) | MCP reference page: every part of MCP (spec 2026-07-28) as one object, with every allowed value. Live at [vbmavani.github.io/agent-toolkit/mcp](https://vbmavani.github.io/agent-toolkit/mcp/) |
-| [`mcp/docs/reference/`](mcp/docs/reference/) | Background pages linked from the reference page: a census of official company MCP servers and MCP adoption numbers |
+| [`mcp/docs/`](mcp/docs/) | The guide site: overview, server and client walkthroughs, the spec reference, and background pages on the MCP landscape |
 
 ### What the weather server covers
 
