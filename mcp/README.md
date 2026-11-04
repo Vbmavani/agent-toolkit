@@ -4,6 +4,10 @@ A TypeScript MCP weather server and a TypeScript MCP client that connects to it.
 
 **Guide: [vbmavani.github.io/agent-toolkit/mcp](https://vbmavani.github.io/agent-toolkit/mcp/)**
 
+**Every MCP component, grouped by role: [MCP-COMPONENTS.md](MCP-COMPONENTS.md)**
+
+**Learn MCP the way I did, in 11 chapters: [vbmavani.github.io/mcp/learn](https://vbmavani.github.io/mcp/learn/)** (source: [docs/learn](docs/learn/))
+
 | Folder | What it is |
 |---|---|
 | `weather-server-typescript/` | MCP server with weather tools backed by the US National Weather Service API |
