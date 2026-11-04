@@ -1,0 +1,8 @@
+metric,value,as_of,source,url,confidence
+Enterprise tech leaders running MCP in limited or broad production (300 surveyed),41%,Dec 2025,Stacklok survey (via Digital Applied),https://www.digitalapplied.com/blog/mcp-adoption-statistics-2026-model-context-protocol,Survey
+Software companies running MCP in production,45%,Dec 2025,Stacklok survey (via Digital Applied),https://www.digitalapplied.com/blog/mcp-adoption-statistics-2026-model-context-protocol,Survey
+Senior leaders at large software companies naming security as the top barrier,64%,Dec 2025,Stacklok survey (via Practical DevSecOps),https://www.practical-devsecops.com/mcp-security-statistics-2026-report/,Survey
+Fortune 500 companies with MCP servers in production AI workflows,28%,Early 2026,Truto estimate (via MCP Manager),https://mcpmanager.ai/blog/mcp-statistics/,Vendor estimate
+Enterprise AI teams with MCP in production,78%,Apr 2026,Stacklok / mcp.institute (untraced),https://www.digitalapplied.com/blog/mcp-adoption-statistics-2026-model-context-protocol,Disputed
+Enterprises running AI agents of any kind in production,70%,2025,Team8 CISO Village Survey (via Practical DevSecOps),https://www.practical-devsecops.com/mcp-security-statistics-2026-report/,Survey
+Official TypeScript + Python SDK downloads per month (project claim),~500M,Jul 2026,MCP maintainers (via LocalCan),https://www.localcan.com/blog/state-of-mcp-server-development,Project claim

@@ -19,7 +19,8 @@ A workshop for building and learning the components of AI agents, one component 
 |---|---|
 | [`mcp/weather-server-typescript/`](mcp/weather-server-typescript/) | MCP server for US weather from the National Weather Service API |
 | [`mcp/mcp-client-typescript/`](mcp/mcp-client-typescript/) | Chatbot client: launches a server, lists its tools and lets Claude call them |
-| [`mcp/docs/`](mcp/docs/) | MCP reference page: every part of MCP (spec 2026-07-28) as one object, with every allowed value. Live at [vbmavani.github.io/mcp](https://vbmavani.github.io/mcp/) |
+| [`mcp/docs/`](mcp/docs/) | MCP reference page: every part of MCP (spec 2026-07-28) as one object, with every allowed value. Live at [vbmavani.github.io/agent-toolkit/mcp](https://vbmavani.github.io/agent-toolkit/mcp/) |
+| [`mcp/docs/reference/`](mcp/docs/reference/) | Background pages linked from the reference page: a census of official company MCP servers and MCP adoption numbers |
 
 ### What the weather server covers
 

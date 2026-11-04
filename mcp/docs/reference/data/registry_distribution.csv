@@ -1,0 +1,10 @@
+distribution,servers
+Remote endpoint only,32830
+npm package,10772
+PyPI package,4483
+Remote + package,4351
+Docker / OCI image,1495
+MCP bundle,1412
+No package listed,651
+NuGet package,157
+cargo package,114

@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="MCP SDK downloads, official registry growth, GitHub repos and reported enterprise figures, through October 2026.">
+<title>MCP Adoption in Numbers</title>
+<style>
+:root{--color-fg:#1f1e1c;--color-fg-muted:#6b6862;--color-bg:#f7f6f3;--color-panel:#fff;--color-border-line:#e4e1da;
+--color-ok:#2e7d4f;--color-warn:#9a6a00;--color-bad:#b3402e;
+--cds-chart-axis:#cfcbc2;--cds-chart-grid:#ece9e2;--cds-chart-muted:#c9c4b8;--cds-chart-reference:#8a857b;
+--cds-border:#e4e1da;--cds-surface-popover:#fff;--cds-shadow-popover:0 4px 16px rgba(0,0,0,.12);--cds-text-secondary:#6b6862;
+--cds-font-size-caption:12.5px;--cds-font-size-body:15px;--cds-font-size-heading:19px;--cds-font-size-title:30px;--cds-font-weight-medium:600;
+--cds-gap-xs:4px;--cds-gap-sm:8px;--cds-gap-md:16px;--cds-gap-xl:36px;--cds-pad-xs:4px;--cds-pad-sm:8px;--cds-pad-lg:18px;--cds-radius:8px;--cds-dur-slow:.3s;
+--font-anthropic-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;--font-anthropic-serif:Georgia,"Times New Roman",serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--color-fg:#ecebe7;--color-fg-muted:#a29f97;--color-bg:#161615;--color-panel:#1f1f1d;--color-border-line:#33322f;
+--color-ok:#6cc58f;--color-warn:#e0b450;--color-bad:#ec8a75;--cds-chart-axis:#4a4945;--cds-chart-grid:#2c2b29;--cds-chart-muted:#5a5852;--cds-chart-reference:#8f8c84;
+--cds-border:#3a3936;--cds-surface-popover:#262624;--cds-shadow-popover:0 4px 16px rgba(0,0,0,.5);--cds-text-secondary:#a29f97;color-scheme:dark}}
+body{margin:0;background:var(--color-bg);color:var(--color-fg);padding:0 16px 56px}
+#dash-root{max-width:1240px;margin:0 auto;padding-top:20px}
+</style>
+<style>
+.mcp-nav{display:flex;flex-wrap:wrap;gap:6px 18px;max-width:1240px;margin:0 auto;padding:14px 0 0;font:500 13px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.mcp-nav a{color:inherit;opacity:.7;text-decoration:none}.mcp-nav a:hover{opacity:1;text-decoration:underline}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script>
+// Stand-in for the claude.ai dashboard runtime: every dataset is built into this file.
+(() => {
+  const RAW = {"downloads": "month,registry,package,downloads\n2024-11,npm,@modelcontextprotocol/sdk,13822\n2024-12,npm,@modelcontextprotocol/sdk,102851\n2025-01,npm,@modelcontextprotocol/sdk,176533\n2025-02,npm,@modelcontextprotocol/sdk,350914\n2025-03,npm,@modelcontextprotocol/sdk,1874545\n2025-04,npm,@modelcontextprotocol/sdk,4212709\n2025-05,npm,@modelcontextprotocol/sdk,20933359\n2025-06,npm,@modelcontextprotocol/sdk,16837593\n2025-07,npm,@modelcontextprotocol/sdk,21605761\n2025-08,npm,@modelcontextprotocol/sdk,24658353\n2025-09,npm,@modelcontextprotocol/sdk,31258519\n2025-10,npm,@modelcontextprotocol/sdk,33786684\n2025-11,npm,@modelcontextprotocol/sdk,35008987\n2025-12,npm,@modelcontextprotocol/sdk,38516712\n2026-01,npm,@modelcontextprotocol/sdk,50249918\n2026-02,npm,@modelcontextprotocol/sdk,71656771\n2026-03,npm,@modelcontextprotocol/sdk,141911796\n2026-04,npm,@modelcontextprotocol/sdk,140092905\n2026-05,npm,@modelcontextprotocol/sdk,153164130\n2026-06,npm,@modelcontextprotocol/sdk,171229606\n2026-07,npm,@modelcontextprotocol/sdk,202755593\n2026-08,npm,@modelcontextprotocol/sdk,225916792\n2026-09,npm,@modelcontextprotocol/sdk,231910527\n2026-10,npm,@modelcontextprotocol/sdk,266877797\n2024-11,npm,@modelcontextprotocol/inspector,0\n2024-12,npm,@modelcontextprotocol/inspector,1467\n2025-01,npm,@modelcontextprotocol/inspector,2998\n2025-02,npm,@modelcontextprotocol/inspector,7053\n2025-03,npm,@modelcontextprotocol/inspector,41530\n2025-04,npm,@modelcontextprotocol/inspector,117682\n2025-05,npm,@modelcontextprotocol/inspector,111382\n2025-06,npm,@modelcontextprotocol/inspector,152147\n2025-07,npm,@modelcontextprotocol/inspector,224319\n2025-08,npm,@modelcontextprotocol/inspector,316599\n2025-09,npm,@modelcontextprotocol/inspector,344720\n2025-10,npm,@modelcontextprotocol/inspector,408016\n2025-11,npm,@modelcontextprotocol/inspector,375967\n2025-12,npm,@modelcontextprotocol/inspector,421107\n2026-01,npm,@modelcontextprotocol/inspector,440437\n2026-02,npm,@modelcontextprotocol/inspector,453362\n2026-03,npm,@modelcontextprotocol/inspector,641104\n2026-04,npm,@modelcontextprotocol/inspector,729075\n2026-05,npm,@modelcontextprotocol/inspector,878113\n2026-06,npm,@modelcontextprotocol/inspector,819835\n2026-07,npm,@modelcontextprotocol/inspector,920739\n2026-08,npm,@modelcontextprotocol/inspector,1132864\n2026-09,npm,@modelcontextprotocol/inspector,1344000\n2026-10,npm,@modelcontextprotocol/inspector,1943504\n2024-11,npm,@modelcontextprotocol/server-filesystem,3801\n2024-12,npm,@modelcontextprotocol/server-filesystem,20552\n2025-01,npm,@modelcontextprotocol/server-filesystem,24729\n2025-02,npm,@modelcontextprotocol/server-filesystem,25881\n2025-03,npm,@modelcontextprotocol/server-filesystem,150326\n2025-04,npm,@modelcontextprotocol/server-filesystem,162870\n2025-05,npm,@modelcontextprotocol/server-filesystem,144742\n2025-06,npm,@modelcontextprotocol/server-filesystem,174541\n2025-07,npm,@modelcontextprotocol/server-filesystem,340591\n2025-08,npm,@modelcontextprotocol/server-filesystem,537948\n2025-09,npm,@modelcontextprotocol/server-filesystem,372250\n2025-10,npm,@modelcontextprotocol/server-filesystem,592445\n2025-11,npm,@modelcontextprotocol/server-filesystem,543466\n2025-12,npm,@modelcontextprotocol/server-filesystem,849339\n2026-01,npm,@modelcontextprotocol/server-filesystem,679657\n2026-02,npm,@modelcontextprotocol/server-filesystem,830587\n2026-03,npm,@modelcontextprotocol/server-filesystem,1782693\n2026-04,npm,@modelcontextprotocol/server-filesystem,1644681\n2026-05,npm,@modelcontextprotocol/server-filesystem,1304430\n2026-06,npm,@modelcontextprotocol/server-filesystem,1333053\n2026-07,npm,@modelcontextprotocol/server-filesystem,2499106\n2026-08,npm,@modelcontextprotocol/server-filesystem,2650384\n2026-09,npm,@modelcontextprotocol/server-filesystem,2917871\n2026-10,npm,@modelcontextprotocol/server-filesystem,2916635\n2024-11,npm,@playwright/mcp,0\n2024-12,npm,@playwright/mcp,0\n2025-01,npm,@playwright/mcp,0\n2025-02,npm,@playwright/mcp,0\n2025-03,npm,@playwright/mcp,22661\n2025-04,npm,@playwright/mcp,166871\n2025-05,npm,@playwright/mcp,292210\n2025-06,npm,@playwright/mcp,360974\n2025-07,npm,@playwright/mcp,1031021\n2025-08,npm,@playwright/mcp,1627604\n2025-09,npm,@playwright/mcp,2217194\n2025-10,npm,@playwright/mcp,2749629\n2025-11,npm,@playwright/mcp,3298211\n2025-12,npm,@playwright/mcp,3896660\n2026-01,npm,@playwright/mcp,5003926\n2026-02,npm,@playwright/mcp,5800893\n2026-03,npm,@playwright/mcp,8223562\n2026-04,npm,@playwright/mcp,10819074\n2026-05,npm,@playwright/mcp,14064005\n2026-06,npm,@playwright/mcp,24160090\n2026-07,npm,@playwright/mcp,28334951\n2026-08,npm,@playwright/mcp,25700340\n2026-09,npm,@playwright/mcp,29303739\n2026-10,npm,@playwright/mcp,26123808\n2026-05,PyPI,mcp,285120800\n2026-06,PyPI,mcp,280853112\n2026-07,PyPI,mcp,319707848\n2026-08,PyPI,mcp,329844958\n2026-09,PyPI,mcp,230129094\n2026-10,PyPI,mcp,291873346\n2026-05,PyPI,fastmcp,71097549\n2026-06,PyPI,fastmcp,96212509\n2026-07,PyPI,fastmcp,88852642\n2026-08,PyPI,fastmcp,87493714\n2026-09,PyPI,fastmcp,53060422\n2026-10,PyPI,fastmcp,60557621\n", "github_repos": "month,new_repos,cumulative\n2024-11,25,25\n2024-12,87,112\n2025-01,81,193\n2025-02,125,318\n2025-03,546,864\n2025-04,796,1660\n2025-05,648,2308\n2025-06,737,3045\n2025-07,639,3684\n2025-08,597,4281\n2025-09,525,4806\n2025-10,587,5393\n2025-11,578,5971\n2025-12,655,6626\n2026-01,904,7530\n2026-02,1660,9190\n2026-03,3100,12290\n2026-04,3106,15396\n2026-05,2975,18371\n2026-06,3049,21420\n2026-07,2933,24353\n2026-08,3121,27474\n2026-09,4533,32007\n2026-10,7481,39488\n", "registry_mix": "distribution,servers\nRemote endpoint only,32830\nnpm package,10772\nPyPI package,4483\nRemote + package,4351\nDocker / OCI image,1495\nMCP bundle,1412\nNo package listed,651\nNuGet package,157\ncargo package,114\n", "registry_monthly": "month,new_servers,new_versions,new_publishers,new_org_publishers,total_servers,total_org_publishers\n2025-09,456,787,277,95,456,95\n2025-10,297,712,194,67,753,162\n2025-11,173,747,137,37,926,199\n2025-12,276,822,210,48,1202,247\n2026-01,389,1229,282,38,1591,285\n2026-02,1154,2910,799,132,2745,417\n2026-03,1940,6070,1346,261,4685,678\n2026-04,2547,7844,1487,367,7232,1045\n2026-05,3022,9833,1572,494,10254,1539\n2026-06,3849,12624,2138,837,14103,2376\n2026-07,5075,18706,3646,1789,19178,4165\n2026-08,6523,23658,3932,2149,25701,6314\n2026-09,11855,39950,6018,3838,37556,10152\n2026-10,16301,75178,11498,7757,53857,17909\n", "registry_top_orgs": "publisher_namespace,servers,first_published\nio.usefulapi,748,2026-07-16\nai.smithery,213,2025-09-10\ncom.textforagents,131,2026-10-19\napp.wishpool,125,2026-07-08\ncom.a2awire,121,2026-07-27\neu.ansvar,106,2026-01-31\ncom.mambabuilt,103,2026-06-01\nai.getvda,95,2026-09-03\ncom.modevc,88,2026-10-16\ncom.mcparmory,76,2026-04-17\napp.openkrill,70,2026-10-03\nio.tooloracle,61,2026-03-17\nco.civai.nova,51,2026-09-21\ncom.jojapi,49,2026-08-19\ndev.workers.cybermax-tools.cybermax,49,2026-09-27\ncom.insightfulpipe,47,2026-10-21\ncom.thenextgennexus,43,2026-04-26\ncom.ranovam,39,2026-08-31\ncom.olyport,38,2026-04-01\ncom.dropwatchhq,35,2026-06-21\n", "reported": "metric,value,as_of,source,url,confidence\nEnterprise tech leaders running MCP in limited or broad production (300 surveyed),41%,Dec 2025,Stacklok survey (via Digital Applied),https://www.digitalapplied.com/blog/mcp-adoption-statistics-2026-model-context-protocol,Survey\nSoftware companies running MCP in production,45%,Dec 2025,Stacklok survey (via Digital Applied),https://www.digitalapplied.com/blog/mcp-adoption-statistics-2026-model-context-protocol,Survey\nSenior leaders at large software companies naming security as the top barrier,64%,Dec 2025,Stacklok survey (via Practical DevSecOps),https://www.practical-devsecops.com/mcp-security-statistics-2026-report/,Survey\nFortune 500 companies with MCP servers in production AI workflows,28%,Early 2026,Truto estimate (via MCP Manager),https://mcpmanager.ai/blog/mcp-statistics/,Vendor estimate\nEnterprise AI teams with MCP in production,78%,Apr 2026,Stacklok / mcp.institute (untraced),https://www.digitalapplied.com/blog/mcp-adoption-statistics-2026-model-context-protocol,Disputed\nEnterprises running AI agents of any kind in production,70%,2025,Team8 CISO Village Survey (via Practical DevSecOps),https://www.practical-devsecops.com/mcp-security-statistics-2026-report/,Survey\nOfficial TypeScript + Python SDK downloads per month (project claim),~500M,Jul 2026,MCP maintainers (via LocalCan),https://www.localcan.com/blog/state-of-mcp-server-development,Project claim\n", "sdk_daily": "day,npm_sdk,pypi_mcp\n2026-07-01,7101372,11519174\n2026-07-02,7361639,11458094\n2026-07-03,5867235,9722362\n2026-07-04,3854689,7417060\n2026-07-05,3526576,6775844\n2026-07-06,7062245,10234974\n2026-07-07,7429761,11217176\n2026-07-08,7145881,10265548\n2026-07-09,6944437,9625333\n2026-07-10,6612215,10370856\n2026-07-11,3816578,7913760\n2026-07-12,3887717,7864800\n2026-07-13,7068571,10855263\n2026-07-14,7414372,10870466\n2026-07-15,7257179,11059660\n2026-07-16,7185980,10611423\n2026-07-17,6705292,10598956\n2026-07-18,3979234,7505429\n2026-07-19,3729510,7030880\n2026-07-20,6991640,10228636\n2026-07-21,7807274,10951823\n2026-07-22,8046166,11343135\n2026-07-23,8125090,11137951\n2026-07-24,6841115,10624998\n2026-07-25,3943889,7568461\n2026-07-26,4102828,7647767\n2026-07-27,7833621,11610382\n2026-07-28,8513635,13706850\n2026-07-29,8889834,14450302\n2026-07-30,9253916,13977386\n2026-07-31,8456102,13543099\n2026-08-01,5504513,10371405\n2026-08-02,4853351,9490283\n2026-08-03,8543123,13334934\n2026-08-04,9581792,13412747\n2026-08-05,9227797,13026173\n2026-08-06,7354823,11689958\n2026-08-07,8226285,13206601\n2026-08-08,4359813,9457490\n2026-08-09,4432773,8988508\n2026-08-10,8296056,12059694\n2026-08-11,8654658,12750631\n2026-08-12,8862212,13107242\n2026-08-13,8845594,14956368\n2026-08-14,8588644,14285452\n2026-08-15,4664630,10870201\n2026-08-16,4439072,10061602\n2026-08-17,7961789,13221687\n2026-08-18,8890513,13901743\n2026-08-19,8664649,13141252\n2026-08-20,8608264,12736930\n2026-08-21,7863219,12504691\n2026-08-22,4263757,9262855\n2026-08-23,4325787,8839337\n2026-08-24,8493435,11205667\n2026-08-25,9031797,7928067\n2026-08-26,8898992,7617613\n2026-08-27,8881079,7143051\n2026-08-28,8006546,6324114\n2026-08-29,4434875,4261253\n2026-08-30,4557577,4158403\n2026-08-31,8599377,6529006\n2026-09-01,9751300,7298999\n2026-09-02,10049422,7523520\n2026-09-03,0,7963985\n2026-09-04,9021320,7383417\n2026-09-05,5326225,5495369\n2026-09-06,5149260,5675724\n2026-09-07,0,7560669\n2026-09-08,0,9470739\n2026-09-09,10526458,8608615\n2026-09-10,10401929,8403937\n2026-09-11,9720788,7816258\n2026-09-12,5301480,5272509\n2026-09-13,5043747,5083870\n2026-09-14,9578742,7879314\n2026-09-15,0,8551797\n2026-09-16,9953762,8385728\n2026-09-17,9862016,8914711\n2026-09-18,9597414,9189484\n2026-09-19,5784156,6100044\n2026-09-20,5217891,5195370\n2026-09-21,9748739,7705756\n2026-09-22,10552852,8610589\n2026-09-23,11125268,8909235\n2026-09-24,11075920,9011725\n2026-09-25,10143870,8615880\n2026-09-26,5872606,5453392\n2026-09-27,6205923,5622895\n2026-09-28,11855067,8771550\n2026-09-29,12562372,10245001\n2026-09-30,12482000,9409012\n2026-10-01,12922009,9737921\n2026-10-02,11663009,9036122\n2026-10-03,7291060,6067272\n2026-10-04,7450931,6524581\n2026-10-05,12361905,9363857\n2026-10-06,0,10313103\n2026-10-07,13371394,9595894\n2026-10-08,13301957,9606567\n2026-10-09,12353515,9130052\n2026-10-10,6994390,6451084\n2026-10-11,7062969,6814783\n2026-10-12,11910199,9357152\n2026-10-13,0,10090858\n2026-10-14,0,10646593\n2026-10-15,0,10941726\n2026-10-16,13111453,10236590\n2026-10-17,7269449,6753940\n2026-10-18,7141380,6721293\n2026-10-19,0,9981845\n2026-10-20,0,11075782\n2026-10-21,0,11921444\n2026-10-22,14551742,12805888\n2026-10-23,13406688,10856685\n2026-10-24,7765777,6770017\n2026-10-25,7524121,6770557\n2026-10-26,14015215,10736593\n2026-10-27,14593906,11383942\n2026-10-28,14900059,12300278\n2026-10-29,14820372,11836806\n2026-10-30,13292449,10739255\n2026-10-31,7801848,7304866\n2026-11-01,7867120,7667099\n2026-11-02,13952876,11949289\n"};
+  const store = {};
+  for (const [id, text] of Object.entries(RAW)) store[id] = d3.csvParse(text);
+  const draws = [];
+  const dark = matchMedia('(prefers-color-scheme: dark)');
+  const light = ['#2f6fdb', '#d9730d', '#0f9d76', '#b0469c', '#6b5bd6', '#c0392b', '#7f8c2a', '#1b8fa6'];
+  const night = ['#78a6ff', '#f2a65a', '#4fd1a5', '#e07fcf', '#a497ff', '#ff8a7a', '#c3cf63', '#5cc8de'];
+  window.dash = {
+    colors: dark.matches ? night : light,
+    data: (id) => store[id] ? {status: 'ok', data: store[id], columns: store[id].columns || Object.keys(store[id][0] || {})} : {status: 'missing', data: []},
+    calc: (id, {inputs, fn}) => { store[id] = fn(...inputs.map((i) => store[i])); },
+    draw: (key, fn) => { draws.push([key, fn]); },
+  };
+  const run = () => draws.forEach(([key, fn]) => document.querySelectorAll(`[data-draw="${key}"]`).forEach((el) => fn(el)));
+  window.addEventListener('DOMContentLoaded', run);
+  let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(run, 150); });
+  dark.addEventListener('change', () => { dash.colors = dark.matches ? night : light; run(); });
+})();
+</script>
+</head>
+<body>
+<nav class="mcp-nav"><a href="../">&larr; MCP reference</a><a href="census.html">Server census</a><a href="adoption.html">Adoption in numbers</a></nav>
+<div id="dash-root">
+<style>
+  .mx { font-family: var(--font-anthropic-sans); display: flex; flex-direction: column; gap: var(--cds-gap-xl); }
+  .mx h1 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+  .mx h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; text-wrap: balance; }
+  .mx h3 { font-size: var(--cds-font-size-body); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .mx p { margin: 0; max-width: 72ch; }
+  .mx .lede { color: var(--color-fg); font-size: var(--cds-font-size-body); line-height: 1.5; }
+  .mx .lede b, .mx .tile b { font-weight: 600; }
+  .mx .note { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); line-height: 1.45; }
+  .mx .head { display: flex; flex-direction: column; gap: var(--cds-gap-sm); }
+  .mx .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--cds-gap-md); }
+  .mx .tile { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: flex; flex-direction: column; gap: var(--cds-gap-xs); min-width: 0; }
+  .mx .tile .lbl { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+  .mx .tile .big { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); font-variant-numeric: tabular-nums; line-height: 1.1; }
+  .mx .tile .delta { font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+  .mx .up { color: var(--color-ok); } .mx .down { color: var(--color-bad); }
+  .mx section { display: flex; flex-direction: column; gap: var(--cds-gap-md); }
+  .mx .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: var(--cds-gap-md); }
+  .mx .card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: flex; flex-direction: column; gap: var(--cds-gap-sm); min-width: 0; }
+  .mx .chart { position: relative; min-height: 250px; width: 100%; }
+  .mx .chart.tall { min-height: 300px; }
+  .mx .tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm); font-size: var(--cds-font-size-caption); white-space: nowrap; z-index: 2; font-variant-numeric: tabular-nums; }
+  .mx .tip .t { color: var(--cds-text-secondary); }
+  .mx .tip .sw { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; }
+  .mx .fail { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: inherit; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+  .mx .fail::before { content: ""; width: .375rem; height: .375rem; border-radius: 50%; background: var(--color-bad); }
+  .mx svg text { fill: var(--color-fg-muted); font-size: var(--cds-font-size-caption); font-family: var(--font-anthropic-sans); }
+  .mx svg text.end { fill: var(--color-fg); }
+  .mx .legend { display: flex; flex-wrap: wrap; gap: var(--cds-gap-md); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .mx .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .mx .legend i { width: 10px; height: 3px; border-radius: 2px; display: inline-block; }
+  .mx .tbl { overflow: auto; max-height: 26rem; }
+  .mx table { border-collapse: collapse; width: 100%; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+  .mx th { text-align: left; font-weight: var(--cds-font-weight-medium); color: var(--color-fg-muted); position: sticky; top: 0; background: var(--color-panel); padding: 6px 8px; border-bottom: 1px solid var(--color-border-line); }
+  .mx td { padding: 6px 8px; border-bottom: 1px solid var(--color-border-line); vertical-align: top; }
+  .mx td.n, .mx th.n { text-align: right; }
+  .mx td a { color: inherit; }
+  .mx .chip { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: var(--cds-font-size-caption); border: 1px solid var(--color-border-line); color: var(--color-fg-muted); }
+  .mx .chip.warn { color: var(--color-warn); }
+  .mx .chip.ok { color: var(--color-ok); }
+  [data-dash-source-state=empty] { color: transparent; }
+  [data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+</style>
+
+<div class="mx">
+  <header class="head" id="top">
+    <h1>MCP adoption in numbers</h1>
+    <p class="lede">In October 2026 the two official MCP SDKs were downloaded <b data-draw="lede-dl" data-source="sdk_combined" data-field="total" data-where="month=2026-10">—</b> times, and <b data-draw="lede-orgs" data-source="registry_monthly" data-field="new_org_publishers" data-where="month=2026-10">—</b> organisations with a verified domain published their first server to the official MCP Registry.</p>
+    <p class="note">No public dataset counts "companies adopting MCP" directly. The closest public signal is the official registry: a publisher that proves it owns a domain (for example com.stripe) gets a reverse-DNS namespace, while individuals publish under io.github.&lt;user&gt;. Domain-verified namespaces are used here as the stand-in for companies. It is an upper bound: a solo developer with a personal domain counts too, and large companies that host servers only on their own sites never appear. Months run to 31 October 2026; November is left out because it has only just started.</p>
+  </header>
+
+  <div class="tiles">
+    <div class="tile">
+      <span class="lbl">SDK downloads, October 2026 (npm + PyPI)</span>
+      <span class="big" data-draw="k-dl" data-source="sdk_combined" data-field="total" data-where="month=2026-10">—</span>
+      <span class="delta" data-draw="k-dl-d" data-source="sdk_combined">—</span>
+    </div>
+    <div class="tile">
+      <span class="lbl">Servers in the official registry</span>
+      <span class="big" data-draw="k-srv" data-source="registry_monthly" data-field="total_servers" data-where="month=2026-10">—</span>
+      <span class="delta" data-draw="k-srv-d" data-source="registry_monthly">—</span>
+    </div>
+    <div class="tile">
+      <span class="lbl">Domain-verified publishers (company proxy)</span>
+      <span class="big" data-draw="k-org" data-source="registry_monthly" data-field="total_org_publishers" data-where="month=2026-10">—</span>
+      <span class="delta" data-draw="k-org-d" data-source="registry_monthly">—</span>
+    </div>
+    <div class="tile">
+      <span class="lbl">GitHub repos tagged mcp-server, total</span>
+      <span class="big" data-draw="k-gh" data-source="github_repos" data-field="cumulative" data-where="month=2026-10">—</span>
+      <span class="delta" data-draw="k-gh-d" data-source="github_repos">—</span>
+    </div>
+  </div>
+
+  <section id="companies">
+    <h2>Organisations joining each month</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>New domain-verified publishers per month</h3>
+        <p class="note">Each bar counts organisations whose first server appeared in the official registry that month.</p>
+        <div class="chart" id="c-orgs" data-draw="c-orgs" data-source="registry_monthly"></div>
+      </div>
+      <div class="card">
+        <h3>All new publishers per month</h3>
+        <p class="note">Every namespace, individuals on GitHub included. Accent is the organisation share; muted is individuals.</p>
+        <div class="chart" id="c-pubs" data-draw="c-pubs" data-source="registry_monthly"></div>
+        <div class="legend"><span><i style="background: var(--cds-chart-muted)"></i>Individual (io.github)</span><span><i data-draw="sw0"></i>Domain-verified organisation</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Organisations with the most servers in the registry</h3>
+      <p class="note">Top 20 domain-verified namespaces by number of distinct servers published. The leaders are mostly bulk publishers and directories, not household brands: volume here says little about scale of use.</p>
+      <div class="tbl">
+        <table data-source="registry_top_orgs" data-row-key="publisher_namespace">
+          <thead><tr><th data-field="publisher_namespace">Namespace</th><th class="n" data-field="servers">Servers</th><th data-field="first_published">First published</th></tr></thead>
+          <tbody data-draw="t-orgs"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="servers">
+    <h2>New MCP servers each month</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>New servers in the official registry</h3>
+        <p class="note">Distinct server names, counted in the month of their first published version. The registry opened in September 2025.</p>
+        <div class="chart" id="c-srv" data-draw="c-srv" data-source="registry_monthly"></div>
+      </div>
+      <div class="card">
+        <h3>New GitHub repositories tagged mcp-server</h3>
+        <p class="note">Public repositories by creation month that carry the mcp-server topic today. Many servers never get tagged, so this undercounts.</p>
+        <div class="chart" id="c-gh" data-draw="c-gh" data-source="github_repos"></div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <h3>Running total of registry servers</h3>
+        <div class="chart" id="c-srv-cum" data-draw="c-srv-cum" data-source="registry_monthly"></div>
+      </div>
+      <div class="card">
+        <h3>How registry servers are delivered</h3>
+        <p class="note">Latest active version of each server. A server listing several package types is counted once per type.</p>
+        <div class="chart" id="c-mix" data-draw="c-mix" data-source="registry_mix"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="downloads">
+    <h2>SDK and tool downloads</h2>
+    <div class="card">
+      <h3>TypeScript SDK downloads per month since launch</h3>
+      <p class="note">@modelcontextprotocol/sdk on npm, November 2024 (launch month) to October 2026.</p>
+      <div class="chart tall" id="c-npm" data-draw="c-npm" data-source="downloads"></div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <h3>Python vs TypeScript SDK, monthly</h3>
+        <p class="note">PyPI only publishes the last 180 days, so this comparison starts in May 2026.</p>
+        <div class="chart" id="c-sdk2" data-draw="c-sdk2" data-source="sdk_combined"></div>
+      </div>
+      <div class="card">
+        <h3>Daily SDK downloads</h3>
+        <p class="note">Each day since 1 July 2026. The weekly dips are weekends.</p>
+        <div class="chart" id="c-daily" data-draw="c-daily" data-source="sdk_daily"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Popular MCP tools and libraries, monthly downloads</h3>
+      <p class="note">npm series run from launch; PyPI series (mcp, fastmcp) from May 2026. Hover a line for values.</p>
+      <div class="chart tall" id="c-tools" data-draw="c-tools" data-source="downloads"></div>
+      <div class="legend" data-draw="tools-legend" data-source="downloads"></div>
+    </div>
+  </section>
+
+  <section id="surveys">
+    <h2>Reported enterprise figures</h2>
+    <p class="note">Survey and analyst numbers published by others. They come from small or vendor-run samples, so read them as indications, not measurements.</p>
+    <div class="card">
+      <div class="tbl">
+        <table data-source="reported" data-row-key="metric">
+          <thead><tr><th data-field="metric">Figure</th><th class="n" data-field="value">Value</th><th data-field="as_of">As of</th><th data-field="source">Source</th><th data-field="confidence">Confidence</th></tr></thead>
+          <tbody data-draw="t-rep"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+(() => {
+  const compact = new Intl.NumberFormat('en', {notation: 'compact', maximumFractionDigits: 1});
+  const comma = d3.format(',');
+  const pm = d3.utcParse('%Y-%m');
+  const pd = d3.utcParse('%Y-%m-%d');
+  const fmtMonth = d3.utcFormat('%b %Y');
+  const fmtShort = d3.utcFormat("%b '%y");
+  const fmtDay = d3.utcFormat('%b %-d');
+  const big = (v) => (v >= 10000 ? compact.format(v) : comma(v));
+
+  // Returns true when every source is ready; otherwise puts the waiting or failed state in el.
+  const ready = (el, ...ids) => {
+    const st = ids.map((id) => dash.data(id));
+    if (st.every((s) => s.status === 'ok')) return st.map((s) => s.data);
+    el.replaceChildren();
+    if (st.some((s) => s.status === 'error' || s.status === 'declined')) {
+      const f = document.createElement('div'); f.className = 'fail'; f.textContent = 'Failed to load'; el.append(f);
+    } else el.textContent = '—';
+    return null;
+  };
+  const num = (r, k) => Number(r[k]);
+  const months = (rows) => rows.filter((r) => r.month < '2026-11');
+
+  function tipBox(el) {
+    const t = document.createElement('div'); t.className = 'tip'; t.hidden = true; el.append(t);
+    return {
+      show(x, y, title, lines) {
+        t.replaceChildren();
+        const h = document.createElement('div'); h.className = 't'; h.textContent = title; t.append(h);
+        lines.forEach(([c, name, val]) => {
+          const d = document.createElement('div');
+          if (c) { const s = document.createElement('span'); s.className = 'sw'; s.style.background = c; d.append(s); }
+          d.append(document.createTextNode((name ? name + '  ' : '') + val)); t.append(d);
+        });
+        t.hidden = false;
+        const W = el.clientWidth, tw = t.offsetWidth;
+        t.style.left = Math.max(0, Math.min(W - tw, x + 12)) + 'px';
+        t.style.top = Math.max(0, y - 10) + 'px';
+      },
+      hide() { t.hidden = true; }
+    };
+  }
+  const measure = (svg, texts) => {
+    const g = svg.append('g');
+    const w = d3.max(texts, (s) => g.append('text').text(s).node().getComputedTextLength()) || 0;
+    g.remove(); return w;
+  };
+  const cleanAxis = (g) => { g.attr('font-size', null).attr('font-family', null); g.select('.domain').attr('stroke', 'var(--cds-chart-axis)'); g.selectAll('.tick line').attr('stroke', 'var(--cds-chart-grid)'); };
+
+  // Vertical bars over months. stack: [{key, color, label}] draws stacked segments.
+  window.mxBars = function (el, rows, xKey, stack, opts = {}) {
+    el.replaceChildren();
+    const W = el.clientWidth || 600, H = opts.h || 250;
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`);
+    const dates = rows.map((r) => pm(r[xKey]));
+    const tot = rows.map((r) => d3.sum(stack, (s) => num(r, s.key)));
+    const y = d3.scaleLinear([0, d3.max(tot) || 1], [H - 24, 8]).nice();
+    const ml = measure(svg, y.ticks(4).map(big)) + 10;
+    const x = d3.scaleBand(rows.map((r) => r[xKey]), [ml, W - 4]).padding(0.25);
+    svg.append('g').attr('transform', `translate(${ml},0)`).call(d3.axisLeft(y).ticks(4).tickFormat(big).tickSize(-(W - ml - 4))).call(cleanAxis).call((g) => g.select('.domain').remove());
+    const every = Math.max(1, Math.ceil(rows.length / Math.max(2, Math.floor((W - ml) / 64))));
+    svg.append('g').attr('transform', `translate(0,${H - 24})`).call(d3.axisBottom(x).tickValues(x.domain().filter((_, i) => (rows.length - 1 - i) % every === 0)).tickFormat((m) => fmtShort(pm(m))).tickSize(0).tickPadding(8)).call(cleanAxis);
+    const bw = Math.min(32, x.bandwidth());
+    const off = (x.bandwidth() - bw) / 2;
+    const tip = tipBox(el);
+    rows.forEach((r, i) => {
+      let acc = 0;
+      const g = svg.append('g');
+      stack.forEach((s, j) => {
+        const v = num(r, s.key); if (!v) return;
+        const y0 = y(acc), y1 = y(acc + v); acc += v;
+        g.append('rect').attr('x', x(r[xKey]) + off).attr('width', bw).attr('y', y1).attr('height', Math.max(0, y0 - y1 - (j < stack.length - 1 ? 1 : 0)))
+          .attr('rx', j === stack.length - 1 || stack.length === 1 ? 3 : 0).attr('fill', s.color);
+      });
+      g.append('rect').attr('x', x(r[xKey])).attr('width', x.bandwidth()).attr('y', 0).attr('height', H - 24).attr('fill', 'transparent')
+        .on('pointermove', (e) => {
+          const [px, py] = d3.pointer(e, el);
+          g.selectAll('rect').attr('opacity', (_, k, n) => 1);
+          tip.show(px, py, fmtMonth(dates[i]), stack.length > 1 ? [...stack.map((s) => [s.color, s.label, comma(num(r, s.key))]), [null, 'Total', comma(tot[i])]] : [[null, stack[0].label, comma(num(r, stack[0].key))]]);
+        })
+        .on('pointerleave', () => tip.hide());
+    });
+  };
+
+  // Lines over time. series: [{name, color, pts: [{d, v}]}]
+  window.mxLines = function (el, series, opts = {}) {
+    el.replaceChildren();
+    const W = el.clientWidth || 600, H = opts.h || 250;
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`);
+    const all = series.flatMap((s) => s.pts);
+    const y = d3.scaleLinear([0, d3.max(all, (p) => p.v) || 1], [H - 24, 10]).nice();
+    const ml = measure(svg, y.ticks(5).map(big)) + 10;
+    const endLabels = opts.endLabels !== false;
+    const mr = endLabels ? measure(svg, series.map((s) => `${s.name} ${big(s.pts[s.pts.length - 1].v)}`)) + 12 : 8;
+    const x = d3.scaleUtc(d3.extent(all, (p) => p.d), [ml, Math.max(ml + 80, W - mr)]);
+    svg.append('g').attr('transform', `translate(${ml},0)`).call(d3.axisLeft(y).ticks(5).tickFormat(big).tickSize(-(x.range()[1] - ml))).call(cleanAxis).call((g) => g.select('.domain').remove());
+    svg.append('g').attr('transform', `translate(0,${H - 24})`).call(d3.axisBottom(x).ticks(Math.max(2, Math.floor((x.range()[1] - ml) / 80))).tickFormat(opts.daily ? fmtDay : fmtShort).tickSize(0).tickPadding(8)).call(cleanAxis);
+    const line = d3.line().x((p) => x(p.d)).y((p) => y(p.v));
+    series.forEach((s) => {
+      svg.append('path').datum(s.pts).attr('fill', 'none').attr('stroke', s.color).attr('stroke-width', 2).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round').attr('d', line);
+      if (!opts.daily) svg.append('g').selectAll('circle').data(s.pts).join('circle').attr('cx', (p) => x(p.d)).attr('cy', (p) => y(p.v)).attr('r', 2.5).attr('fill', s.color);
+    });
+    if (endLabels) {
+      const ends = series.map((s) => ({s, p: s.pts[s.pts.length - 1], y: y(s.pts[s.pts.length - 1].v)})).sort((a, b) => a.y - b.y);
+      for (let i = 1; i < ends.length; i++) if (ends[i].y - ends[i - 1].y < 13) ends[i].y = ends[i - 1].y + 13;
+      ends.forEach((e) => svg.append('text').attr('class', 'end').attr('x', x(e.p.d) + 6).attr('y', e.y + 4).text(`${e.s.name} ${big(e.p.v)}`));
+    }
+    const rule = svg.append('line').attr('y1', 10).attr('y2', H - 24).attr('stroke', 'var(--cds-chart-reference)').attr('opacity', 0);
+    const dots = svg.append('g');
+    const tip = tipBox(el);
+    const dset = [...new Set(all.map((p) => +p.d))].sort((a, b) => a - b);
+    svg.append('rect').attr('x', ml).attr('width', x.range()[1] - ml).attr('y', 0).attr('height', H - 24).attr('fill', 'transparent')
+      .on('pointermove', (e) => {
+        const [px, py] = d3.pointer(e, el);
+        const t = x.invert(d3.pointer(e)[0]);
+        const k = dset[d3.minIndex(dset, (d) => Math.abs(d - t))];
+        rule.attr('x1', x(k)).attr('x2', x(k)).attr('opacity', 1);
+        const hits = series.map((s) => [s, s.pts.find((p) => +p.d === k)]).filter(([, p]) => p);
+        dots.selectAll('circle').data(hits).join('circle').attr('cx', ([, p]) => x(p.d)).attr('cy', ([, p]) => y(p.v)).attr('r', 4.5).attr('fill', ([s]) => s.color).attr('stroke', 'var(--color-panel)').attr('stroke-width', 2);
+        tip.show(px, py, (opts.daily ? d3.utcFormat('%a %b %-d, %Y') : fmtMonth)(new Date(k)), hits.sort((a, b) => b[1].v - a[1].v).map(([s, p]) => [series.length > 1 ? s.color : null, series.length > 1 ? s.name : '', comma(p.v)]));
+      })
+      .on('pointerleave', () => { tip.hide(); rule.attr('opacity', 0); dots.selectAll('circle').remove(); });
+  };
+
+  // Horizontal bars for categories.
+  window.mxHBars = function (el, rows, labelKey, valKey, color) {
+    el.replaceChildren();
+    const W = el.clientWidth || 600, rowH = 30, H = rows.length * rowH + 8;
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`);
+    const ml = measure(svg, rows.map((r) => r[labelKey])) + 12;
+    const mr = measure(svg, rows.map((r) => comma(num(r, valKey)))) + 10;
+    const x = d3.scaleLinear([0, d3.max(rows, (r) => num(r, valKey)) || 1], [ml, W - mr]);
+    const tip = tipBox(el);
+    const total = d3.sum(rows, (r) => num(r, valKey));
+    rows.forEach((r, i) => {
+      const yy = i * rowH + 4;
+      svg.append('text').attr('x', ml - 8).attr('y', yy + 15).attr('text-anchor', 'end').text(r[labelKey]);
+      svg.append('rect').attr('x', ml).attr('y', yy + 4).attr('height', 16).attr('width', Math.max(2, x(num(r, valKey)) - ml)).attr('rx', 3).attr('fill', color);
+      svg.append('text').attr('class', 'end').attr('x', x(num(r, valKey)) + 6).attr('y', yy + 16).text(comma(num(r, valKey)));
+      svg.append('rect').attr('x', 0).attr('y', yy).attr('width', W).attr('height', rowH).attr('fill', 'transparent')
+        .on('pointermove', (e) => { const [px, py] = d3.pointer(e, el); tip.show(px, py, r[labelKey], [[null, '', `${comma(num(r, valKey))} entries · ${d3.format('.1%')(num(r, valKey) / total)}`]]); })
+        .on('pointerleave', () => tip.hide());
+    });
+  };
+
+  window.mxReady = ready; window.mxNum = num; window.mxMonths = months; window.mxBig = big;
+  window.mxFmt = {comma, compact, pm, pd, big};
+})();
+</script>
+
+<script>
+  dash.calc('sdk_combined', {
+    title: 'Official SDK downloads combined',
+    description: 'Monthly npm @modelcontextprotocol/sdk plus PyPI mcp, for months both registries report in full.',
+    inputs: ['downloads'],
+    fn: (downloads) => {
+      const by = {};
+      for (const r of downloads) {
+        if (r.package !== '@modelcontextprotocol/sdk' && r.package !== 'mcp') continue;
+        const m = (by[r.month] ??= {month: r.month, npm: null, pypi: null});
+        if (r.package === 'mcp') m.pypi = Number(r.downloads); else m.npm = Number(r.downloads);
+      }
+      return Object.values(by).filter((m) => m.npm != null && m.pypi != null)
+        .sort((a, b) => a.month.localeCompare(b.month)).map((m) => ({...m, total: m.npm + m.pypi}));
+    }
+  });
+</script>
+
+<script>
+(() => {
+  const {comma, pm, pd, big} = window.mxFmt;
+  const ready = window.mxReady, num = window.mxNum, months = window.mxMonths;
+  const pct = d3.format('+.0%');
+  const at = (rows, m) => rows.find((r) => r.month === m);
+
+  const fillNum = (key, src, field, month) => dash.draw(key, (el) => {
+    const d = ready(el, src); if (!d) return;
+    const r = at(d[0], month); el.textContent = r ? big(Number(r[field])) : '—';
+  });
+  fillNum('lede-dl', 'sdk_combined', 'total', '2026-10');
+  fillNum('lede-orgs', 'registry_monthly', 'new_org_publishers', '2026-10');
+  fillNum('k-dl', 'sdk_combined', 'total', '2026-10');
+  fillNum('k-srv', 'registry_monthly', 'total_servers', '2026-10');
+  fillNum('k-org', 'registry_monthly', 'total_org_publishers', '2026-10');
+  fillNum('k-gh', 'github_repos', 'cumulative', '2026-10');
+
+  const delta = (key, src, field, label) => dash.draw(key, (el) => {
+    const d = ready(el, src); if (!d) return;
+    const a = at(d[0], '2026-09'), b = at(d[0], '2026-10');
+    if (!a || !b) { el.textContent = '—'; return; }
+    const ch = Number(b[field]) / Number(a[field]) - 1;
+    el.textContent = `${pct(ch)} ${label}`;
+    el.classList.toggle('up', ch >= 0); el.classList.toggle('down', ch < 0);
+  });
+  delta('k-dl-d', 'sdk_combined', 'total', 'vs September 2026');
+  delta('k-srv-d', 'registry_monthly', 'total_servers', 'in October 2026');
+  delta('k-org-d', 'registry_monthly', 'total_org_publishers', 'in October 2026');
+  delta('k-gh-d', 'github_repos', 'cumulative', 'in October 2026');
+
+  dash.draw('sw0', (el) => { el.style.background = dash.colors[0]; });
+
+  dash.draw('c-orgs', (el) => {
+    const d = ready(el, 'registry_monthly'); if (!d) return;
+    window.mxBars(el, months(d[0]), 'month', [{key: 'new_org_publishers', color: dash.colors[0], label: 'New organisations'}]);
+  });
+  dash.draw('c-pubs', (el) => {
+    const d = ready(el, 'registry_monthly'); if (!d) return;
+    const rows = months(d[0]).map((r) => ({month: r.month, ind: num(r, 'new_publishers') - num(r, 'new_org_publishers'), org: num(r, 'new_org_publishers')}));
+    window.mxBars(el, rows, 'month', [{key: 'ind', color: 'var(--cds-chart-muted)', label: 'Individual'}, {key: 'org', color: dash.colors[0], label: 'Organisation'}]);
+  });
+  dash.draw('c-srv', (el) => {
+    const d = ready(el, 'registry_monthly'); if (!d) return;
+    window.mxBars(el, months(d[0]), 'month', [{key: 'new_servers', color: dash.colors[1], label: 'New servers'}]);
+  });
+  dash.draw('c-gh', (el) => {
+    const d = ready(el, 'github_repos'); if (!d) return;
+    window.mxBars(el, months(d[0]), 'month', [{key: 'new_repos', color: dash.colors[2], label: 'New repositories'}]);
+  });
+  dash.draw('c-srv-cum', (el) => {
+    const d = ready(el, 'registry_monthly'); if (!d) return;
+    window.mxLines(el, [{name: 'Servers', color: dash.colors[1], pts: months(d[0]).map((r) => ({d: pm(r.month), v: num(r, 'total_servers')}))}]);
+  });
+  dash.draw('c-mix', (el) => {
+    const d = ready(el, 'registry_mix'); if (!d) return;
+    window.mxHBars(el, [...d[0]].sort((a, b) => num(b, 'servers') - num(a, 'servers')), 'distribution', 'servers', dash.colors[1]);
+  });
+  dash.draw('c-npm', (el) => {
+    const d = ready(el, 'downloads'); if (!d) return;
+    const rows = d[0].filter((r) => r.package === '@modelcontextprotocol/sdk').sort((a, b) => a.month.localeCompare(b.month));
+    window.mxBars(el, rows, 'month', [{key: 'downloads', color: dash.colors[0], label: 'Downloads'}], {h: 300});
+  });
+  dash.draw('c-sdk2', (el) => {
+    const d = ready(el, 'sdk_combined'); if (!d) return;
+    window.mxLines(el, [
+      {name: 'PyPI mcp', color: dash.colors[3], pts: d[0].map((r) => ({d: pm(r.month), v: r.pypi}))},
+      {name: 'npm sdk', color: dash.colors[0], pts: d[0].map((r) => ({d: pm(r.month), v: r.npm}))}
+    ]);
+  });
+  dash.draw('c-daily', (el) => {
+    const d = ready(el, 'sdk_daily'); if (!d) return;
+    window.mxLines(el, [
+      {name: 'PyPI mcp', color: dash.colors[3], pts: d[0].map((r) => ({d: pd(r.day), v: num(r, 'pypi_mcp')}))},
+      {name: 'npm sdk', color: dash.colors[0], pts: d[0].map((r) => ({d: pd(r.day), v: num(r, 'npm_sdk')}))}
+    ], {daily: true});
+  });
+
+  const TOOLS = ['@modelcontextprotocol/sdk', 'mcp', '@playwright/mcp', 'fastmcp', '@modelcontextprotocol/inspector', '@modelcontextprotocol/server-filesystem'];
+  dash.draw('c-tools', (el) => {
+    const d = ready(el, 'downloads'); if (!d) return;
+    const series = TOOLS.map((p, i) => ({name: p, color: dash.colors[i], pts: d[0].filter((r) => r.package === p).sort((a, b) => a.month.localeCompare(b.month)).map((r) => ({d: pm(r.month), v: num(r, 'downloads')}))})).filter((s) => s.pts.length);
+    window.mxLines(el, series, {h: 320, endLabels: false});
+  });
+  dash.draw('tools-legend', (el) => {
+    const d = ready(el, 'downloads'); if (!d) return;
+    el.replaceChildren(...TOOLS.map((p, i) => {
+      const s = document.createElement('span'); const sw = document.createElement('i'); sw.style.background = dash.colors[i];
+      const last = d[0].filter((r) => r.package === p && r.month === '2026-10')[0];
+      s.append(sw, document.createTextNode(`${p} ${last ? big(num(last, 'downloads')) : ''}`)); return s;
+    }));
+  });
+
+  dash.draw('t-orgs', (tb) => {
+    const d = ready(tb, 'registry_top_orgs'); if (!d) return;
+    tb.replaceChildren(...d[0].map((r) => {
+      const tr = document.createElement('tr');
+      [[r.publisher_namespace, ''], [comma(num(r, 'servers')), 'n'], [d3.utcFormat('%b %-d, %Y')(pd(r.first_published)), '']].forEach(([t, c]) => { const td = document.createElement('td'); td.textContent = t; if (c) td.className = c; tr.append(td); });
+      return tr;
+    }));
+  });
+  dash.draw('t-rep', (tb) => {
+    const d = ready(tb, 'reported'); if (!d) return;
+    tb.replaceChildren(...d[0].map((r) => {
+      const tr = document.createElement('tr');
+      const cells = [r.metric, r.value, r.as_of];
+      cells.forEach((t, i) => { const td = document.createElement('td'); td.textContent = t; if (i === 1) td.className = 'n'; tr.append(td); });
+      const s = document.createElement('td'); const a = document.createElement('a'); a.href = r.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = r.source; s.append(a); tr.append(s);
+      const c = document.createElement('td'); const chip = document.createElement('span'); chip.className = 'chip ' + (r.confidence === 'Survey' ? 'ok' : r.confidence === 'Disputed' ? 'warn' : ''); chip.textContent = r.confidence; c.append(chip); tr.append(c);
+      return tr;
+    }));
+  });
+})();
+</script>
+
+</div>
+</body>
+</html>
